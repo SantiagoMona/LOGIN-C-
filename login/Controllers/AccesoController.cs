@@ -9,5 +9,6 @@ namespace login.Controllers
         public IActionResult Login(){
             return View();
         }
+
     }
 }

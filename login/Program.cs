@@ -1,7 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using login.Controllers;
+using login.Models;
+using login.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<LoginContext>
+(options =>
+    options.UseMySql(
+        builder.Configuration.GetConnectionString("mySqlConnection"),
+        Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.2-mysql")
+    )
+);
 
 var app = builder.Build();
 
