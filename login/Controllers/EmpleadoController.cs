@@ -16,6 +16,9 @@ namespace login.Controllers
         public IActionResult Index(){
             return View();
         }
+
+
+        //////////////// REGISTRAR //////////////////
         public IActionResult Register(){
             return View();
         }
@@ -24,6 +27,10 @@ namespace login.Controllers
             _context.Empleados.Add(empleados);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
+        }
+        //////////////////////// REGISTRAR HORA ENTRADA //////////////
+        public IActionResult Ingreso(){
+            return View();
         }
         
     }
