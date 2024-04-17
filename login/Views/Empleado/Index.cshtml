@@ -1,22 +1,24 @@
 ﻿@{
     ViewData["Title"] = "pagina Principal";
 }
-
+@model Empleados
 <div class="container text-center">
+  <h1>Holaaa  @Model.Nombre </h1>
         
     <div class="col">
-      <a class="btn btn-primary mt-5 btn-lg" asp-action="Register" asp-controller="Empleado">Registrar nuevo Empleado</a>
+       <a class="btn btn-warning mt-5 btn-lg" asp-action="Ingreso" asp-controller="Empleado" asp-route-id="@Model.Id">registrar hora de ingreso</a>
     </div>
     <div class="col">
-       <a class="btn btn-primary mt-5 btn-lg" asp-action="Ingreso" asp-controller="Empleado">registrar hora de ingreso</a>
-    </div>
-    <div class="col">
-     <a class="btn btn-success mt-5 btn-lg" asp-action="" asp-controller="Empleado">registrar hora de salida</a>
+     <a class="btn btn-danger mt-5 btn-lg" asp-action="" asp-controller="Empleado">registrar hora de salida</a>
     </div>
     <div class="col">
       <a class="btn btn-success mt-5 btn-lg" asp-action="" asp-controller="Empleado">Historial de entradas y salidas</a>
     </div>
+    <div class="col">
+      <a class="btn btn-primary mt-5 btn-lg" asp-action="Register" asp-controller="Empleado">Registrar nuevo Empleado</a>
+    </div>
      <div class="col">
-      <a class="btn btn-success mt-5 btn-lg" asp-action="" asp-controller="Empleado">Eliminar Empleado</a>
+      <a class="btn btn-outline-danger mt-5 btn-lg" asp-action="" asp-controller="Empleado">Eliminar Empleado</a>
     </div>
 </div>
+

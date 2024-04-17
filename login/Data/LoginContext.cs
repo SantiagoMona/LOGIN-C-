@@ -11,5 +11,6 @@ namespace login.Data
         }
 
         public DbSet<Empleados> Empleados { get; set; }
+        public DbSet<Registros> Registro { get; set; }
     }
 }

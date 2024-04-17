@@ -19,18 +19,20 @@ namespace login.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(string username, string password)
+        public async Task<ActionResult> Login(string correo, string password)
         {
 
-            var userExists = _dbcontext.VerificarUsuario(correo, password);
-            if (userExists)
+            var userExists = await _dbcontext.Empleados.FirstOrDefaultAsync(e=> e.Password.Equals(password) && e.Correo.Equals(correo));
+
+            if (userExists == null)
             {
-                    
-                return RedirectToAction("Index", "Empleado");
+
+                return View("Login");
             }
-            else {
-                ViewData["Mensaje"] = "usuario no encontrado";
-                return View();
+
+            else
+            {
+                return RedirectToAction("Index", "Empleado", new { id = userExists.Id });
             }
         }
 

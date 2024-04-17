@@ -34,19 +34,19 @@
 				</div>
 			</div>
 			<div class="card-body">
-				<form  asp-controller="Acceso" asp-action="Login">
+				<form  asp-controller="Acceso" asp-action="Login" method="post">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" name="Correo" value="correo" placeholder="correo">
+						<input type="text" class="form-control" name="correo"  placeholder="correo">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" name="password" value="password" placeholder="password">
+						<input type="password" class="form-control" name="password"  placeholder="password">
 					</div>
 				
 						<button type="submit" class="btn btn-primary" >Iniciar</button>
@@ -54,7 +54,7 @@
 					</div>
 				</form>
 			</div>
-			<a asp-controller="Empleado" asp-action="Index" >home</a>
+		
 			<div class="card-footer">
 				<div class="d-flex justify-content-center links">
 					Don't have an account?<a asp-action="" asp-controller="">Sign Up</a>
