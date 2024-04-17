@@ -39,8 +39,12 @@ namespace login.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Ingreso(Registros registro)
+        public async Task<IActionResult> Ingreso(Registros registro, int idEmpleado)
         {
+            int? IdEmpleado = HttpContext.Session.GetInt32("id_user");
+
+            registro.empleadoID = IdEmpleado;
+
             _context.Registro.Add(registro);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Empleado");

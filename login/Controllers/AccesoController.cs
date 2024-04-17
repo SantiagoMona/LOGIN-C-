@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using login.Data;
 using login.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace login.Controllers
 {
@@ -21,20 +22,19 @@ namespace login.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(string correo, string password)
         {
-
-            var userExists = await _dbcontext.Empleados.FirstOrDefaultAsync(e=> e.Password.Equals(password) && e.Correo.Equals(correo));
+            var userExists = await _dbcontext.Empleados.FirstOrDefaultAsync(e=> e.Correo.Equals(correo) /* &&  e.Password.Equals(password) */ );
+            
 
             if (userExists == null)
             {
-
+                HttpContext.Session.Clear();
                 return View("Login");
             }
-
             else
             {
-                return RedirectToAction("Index", "Empleado", new { id = userExists.Id });
+                HttpContext.Session.SetInt32("id_user",userExists.Id);
+                return RedirectToAction("Index", "Empleado",new { id = userExists.Id });
             }
         }
-
     }
 }
