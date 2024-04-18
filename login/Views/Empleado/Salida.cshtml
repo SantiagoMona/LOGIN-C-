@@ -1,0 +1,19 @@
+@model Registros;
+
+
+@{
+    ViewData["Title"] = "out hour Page";
+}
+<div class="row">
+        
+    <h1>Registrar hora de salida</h1>
+    <form asp-action="Salida" asp-controller="Empleado" method="post">
+
+        <div class="col">
+            <input asp-for="horaSalida" name="horasalida" class="form-control" />
+            
+            <button type="submit" class="btn btn-primary mt-5 btn-lg">Enviar hora de salida</button>
+        </div>
+       
+    </form>
+</div>

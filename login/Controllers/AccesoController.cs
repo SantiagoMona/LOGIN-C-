@@ -23,7 +23,7 @@ namespace login.Controllers
         [HttpPost]
         public async Task<ActionResult> Login(string correo, string password)
         {
-            var userExists = await _dbcontext.Empleados.FirstOrDefaultAsync(e=> e.Correo.Equals(correo) /* &&  e.Password.Equals(password) */ );
+            var userExists = await _dbcontext.Empleados.FirstOrDefaultAsync(e=> e.Correo.Equals(correo) &&  e.Password.Equals(password) );
             
 
             if (userExists == null)

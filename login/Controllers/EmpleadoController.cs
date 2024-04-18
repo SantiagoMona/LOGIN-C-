@@ -57,12 +57,13 @@ namespace login.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Salida([Bind("horaSalida")]Registros registro){
+        public async Task<IActionResult> Salida([Bind("horaSalida")]DateTime horasalida){
             
             var IdEmpleado = this.HttpContext.Session.GetInt32("id_user");
-            var registers = (from register in _context.Registro orderby IdEmpleado descending select register ).FirstOrDefault();
+            var registers = (from register in _context.Registro orderby IdEmpleado descending select register).FirstOrDefault();
 
-            _context.Registro.Update(registro);
+            registers.horaSalida = horasalida;
+            _context.Registro.Update(registers);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
 
@@ -75,5 +76,12 @@ namespace login.Controllers
             this.HttpContext.Session.Clear();
             return RedirectToAction("Login", "Acceso");
         }
+        //////////////////////// ELIMINAR USUARIO //////////////
+        public IActionResult Eliminar(){
+            return View();
+        }
+        [HttpPost]
+       /*  public async Task<ActionResult> Eliminar(){} */
+
     }
 }
