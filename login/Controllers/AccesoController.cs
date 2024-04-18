@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection;
 using login.Data;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
+using System.Reflection;
 using login.Models;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 
 namespace login.Controllers
 {
@@ -27,13 +28,14 @@ namespace login.Controllers
 
             if (userExists == null)
             {
-                HttpContext.Session.Clear();
+
                 return View("Login");
             }
             else
             {
-                HttpContext.Session.SetInt32("id_user",userExists.Id);
-                return RedirectToAction("Index", "Empleado",new { id = userExists.Id });
+                this.HttpContext.Session.SetInt32("id_user",userExists.Id);
+
+                return RedirectToAction("Index", "Empleado");
             }
         }
     }

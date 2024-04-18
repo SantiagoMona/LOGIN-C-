@@ -4,9 +4,11 @@ using login.Models;
 using Microsoft.VisualBasic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
+using login.permisos;
 
 namespace login.Controllers
 {
+    [ValidarSesion]
     public class EmpleadoController : Controller
     {
         public readonly LoginContext _context;
@@ -16,7 +18,8 @@ namespace login.Controllers
         }
        
 
-        public IActionResult Index(int id){
+        public IActionResult Index(){
+            var id = this.HttpContext.Session.GetInt32("id_user");
             var empleado = _context.Empleados.FirstOrDefault(e => e.Id == id);
             return View(empleado);
             
@@ -39,15 +42,38 @@ namespace login.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Ingreso(Registros registro, int idEmpleado)
+        public async Task<IActionResult> Ingreso([Bind("empleadoID, horaIngreso")]Registros registro)
         {
-            int? IdEmpleado = HttpContext.Session.GetInt32("id_user");
+            var IdEmpleado = this.HttpContext.Session.GetInt32("id_user");
 
             registro.empleadoID = IdEmpleado;
 
             _context.Registro.Add(registro);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Empleado");
+        }
+        //////////////////////// REGISTRAR HORA SALIDA //////////////
+        public IActionResult Salida(){
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Salida([Bind("horaSalida")]Registros registro){
+            
+            var IdEmpleado = this.HttpContext.Session.GetInt32("id_user");
+            var registers = (from register in _context.Registro orderby IdEmpleado descending select register ).FirstOrDefault();
+
+            _context.Registro.Update(registro);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+        }
+
+        //////////////////////// REGISTRAR HORA SALIDA //////////////
+
+        public ActionResult CerrarSesion()
+        {
+            this.HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Acceso");
         }
     }
 }
