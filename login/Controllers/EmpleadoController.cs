@@ -57,13 +57,14 @@ namespace login.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Salida([Bind("horaSalida")]DateTime horasalida){
+        public async Task<IActionResult> Salida(DateTime horasalida){
             
             var IdEmpleado = this.HttpContext.Session.GetInt32("id_user");
-            var registers = (from register in _context.Registro orderby IdEmpleado descending select register).FirstOrDefault();
-
+            var registers = _context.Registro.OrderBy(r => r.Id).LastOrDefault(r => r.empleadoID==IdEmpleado);        
+    
             registers.horaSalida = horasalida;
             _context.Registro.Update(registers);
+
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
 
@@ -77,11 +78,32 @@ namespace login.Controllers
             return RedirectToAction("Login", "Acceso");
         }
         //////////////////////// ELIMINAR USUARIO //////////////
-        public IActionResult Eliminar(){
-            return View();
-        }
-        [HttpPost]
-       /*  public async Task<ActionResult> Eliminar(){} */
+       public async Task<IActionResult> Eliminar(string buscar)
+        {
+            var empleados = from employ in _context.Empleados select employ;
+            /* if (!string.IsNullOrEmpty(buscar))
+            {
+                empleados = empleados.Where(e => e.Names.Contains(buscar) || e.Area.Contains(buscar) || e.CivilStatus.Contains(buscar) || e.About.Contains(buscar) );
+            } */
 
+            return View(await empleados.ToListAsync());
+        }
+        public async Task<IActionResult> Delete(int? id)
+        {
+            var employ = await _context.Empleados.FirstOrDefaultAsync(e => e.Id == id);
+            _context.Empleados.Remove(employ);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("index"); 
+        }
+
+        //////////////////////// HISTORIAL USARIO //////////////
+        public async Task<IActionResult> Historial()
+        {
+            var IdEmpleado = HttpContext.Session.GetInt32("id_user");
+     
+            var hitorial = _context.Registro.Where(employ => employ.empleadoID == IdEmpleado);
+
+            return View(await hitorial.ToListAsync());
+        }
     }
 }

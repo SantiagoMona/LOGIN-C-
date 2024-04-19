@@ -1,0 +1,27 @@
+@{
+    ViewData["Title"] = "Historial empleado";
+}
+
+<div class="col-8">
+    <table class="table table-striped">
+        <thead>
+            <th>ID registro</th>
+            <th>ID Empleado</th>
+            <th>Hora Entrada</th>
+            <th>Hora Salida</th>
+            
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.empleadoID</td>
+                    <td>@item.horaIngreso</td>
+                    <td>@item.horaSalida</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

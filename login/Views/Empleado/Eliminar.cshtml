@@ -1,0 +1,32 @@
+@{
+    ViewData["Title"] = "Eliminar empleado";
+}
+
+<div class="col-8">
+    <table class="table table-striped">
+        <thead>
+            <th>Nombres</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Documento</th>
+            <th>Accion</th>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td>@item.Apellido</td>
+                    <td>@item.Correo</td>
+                    <td>@item.Document</td>
+                    <td> 
+                        <a class="btn btn-danger" asp-action="Delete" asp-controller="Empleado" asp-route-id="@item.Id" method="post">Eliminar</a>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+</div>
