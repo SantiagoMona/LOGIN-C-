@@ -5,6 +5,7 @@ using Microsoft.VisualBasic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Win32;
 using login.permisos;
+using System.Linq;
 
 namespace login.Controllers
 {
@@ -70,11 +71,12 @@ namespace login.Controllers
 
         }
 
-        //////////////////////// REGISTRAR HORA SALIDA //////////////
+        //////////////////////// CERRAR SESION //////////////
 
         public ActionResult CerrarSesion()
         {
-            this.HttpContext.Session.Clear();
+            HttpContext.Session.Clear();
+            this.HttpContext.Session = null;
             return RedirectToAction("Login", "Acceso");
         }
         //////////////////////// ELIMINAR USUARIO //////////////
@@ -103,7 +105,7 @@ namespace login.Controllers
      
             var hitorial = _context.Registro.Where(employ => employ.empleadoID == IdEmpleado);
 
-            return View(await hitorial.ToListAsync());
+            return View(await hitorial.OrderByDescending(h=> h.Id).ToListAsync());
         }
     }
 }

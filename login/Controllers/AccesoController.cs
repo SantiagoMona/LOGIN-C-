@@ -27,8 +27,7 @@ namespace login.Controllers
             
 
             if (userExists == null)
-            {
-
+            { 
                 return View("Login");
             }
             else

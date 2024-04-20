@@ -5,6 +5,7 @@ using login.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<LoginContext>
@@ -17,10 +18,8 @@ builder.Services.AddDbContext<LoginContext>
 /* ///////////// configuracion importante para utilizar session //////////////*/
 builder.Services.AddSession(options =>
         {
-            options.IdleTimeout = TimeSpan.FromMinutes(10);
-            options.Cookie.HttpOnly = true;
-            options.Cookie.IsEssential = true;
-        });
+            options.IdleTimeout = TimeSpan.FromMinutes(1);
+});
 
 var app = builder.Build();
 
@@ -39,6 +38,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 app.UseSession();
+
 
 app.MapControllerRoute(
     name: "default",

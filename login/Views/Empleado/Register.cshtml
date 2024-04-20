@@ -28,15 +28,10 @@
 		<div class="card">
 			<div class="card-header">
 				<h3>Create new employ</h3>
-				<div class="d-flex justify-content-end social_icon">
-					<span><i class="fab fa-facebook-square"></i></span>
-					<span><i class="fab fa-google-plus-square"></i></span>
-					<span><i class="fab fa-twitter-square"></i></span>
-				</div>
 			</div>
 			<div class="card-body">
 				<form asp-action="Register" asp-controller="Empleado" method="post">
-					 <div class="input-group form-group">
+					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
@@ -52,14 +47,14 @@
 					</div>
                      <div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
+							<span class="input-group-text"><i class="fa fa-id-card"></i></span>
 						</div>
 						<input type="number" class="form-control" asp-for="Document" placeholder="Documento">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
-							<span class="input-group-text"><i class="fas fa-user"></i></span>
+							<span class="input-group-text"><i class="fa fa-envelope-open"></i></span>
 						</div>
 						<input type="email" class="form-control" asp-for="Correo" placeholder="Correo">
 						
@@ -80,5 +75,8 @@
 		</div>
 	</div>
 </div>
+<a asp-controller="Empleado" asp-action="Index"> 
+    <button class="btn btn-success" type="submit">volver</button>
+</a>
 </body>
 </html>
